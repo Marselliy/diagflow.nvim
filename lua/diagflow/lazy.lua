@@ -120,7 +120,15 @@ function M.init(config)
             local is_top = config.placement == 'top'
 
             for _, message in ipairs(message_lines) do
-                if config.placement == 'inline' then
+                if config.placement == 'inline' and is_right then
+                    local spacing = string.rep(" ", config.inline_padding_left)
+                    vim.api.nvim_buf_set_extmark(bufnr, ns, diag.lnum + line_offset, diag.col, {
+                        virt_text_pos = 'right_align',
+                        virt_text = { { spacing .. message, hl_group } },
+                        virt_text_hide = true,
+                        strict = false
+                    })
+                elseif config.placement == 'inline' and not is_right then
                     local spacing = string.rep(" ", config.inline_padding_left)
                     vim.api.nvim_buf_set_extmark(bufnr, ns, diag.lnum, diag.col, {
                         virt_text_pos = 'eol',
