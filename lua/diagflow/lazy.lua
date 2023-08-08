@@ -122,7 +122,7 @@ function M.init(config)
             for _, message in ipairs(message_lines) do
                 if config.placement == 'inline' and is_right then
                     local spacing = string.rep(" ", config.inline_padding_left)
-                    vim.api.nvim_buf_set_extmark(bufnr, ns, diag.lnum + line_offset, diag.col, {
+                    vim.api.nvim_buf_set_extmark(bufnr, ns, diag.lnum + line_offset + 1, diag.col, {
                         virt_text_pos = 'right_align',
                         virt_text = { { spacing .. message, hl_group } },
                         virt_text_hide = true,
